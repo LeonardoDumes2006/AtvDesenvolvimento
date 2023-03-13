@@ -25,7 +25,7 @@
             <input type="radio" name="radio" id="radio" value="par">Elementos Pares;<br>
             <input type="radio" name="radio" id="radio" value="impar">Elementos Ímpares;<br>
             <input type="radio" name="radio" id="radio" value="soma">Soma dos Elementos;<br>
-            <input type="radio" name="radio" id="radio" value="media">Médio dos Elementos;<br>
+            <input type="radio" name="radio" id="radio" value="media">Média dos Elementos;<br>
             <input type="radio" name="radio" id="radio" value="acima">Elementos acima da média;<br>
             <input type="radio" name="radio" id="radio" value="abaixo">Elementos abaixo da média;<br>
             <input type="radio" name="radio" id="radio" value="primos">Elementos primos;<br>

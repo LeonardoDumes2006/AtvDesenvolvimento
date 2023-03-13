@@ -68,4 +68,28 @@ if ($radio == "ordem") {
         $media = $cont / $q;
     }
     echo $media ;
+}else if ($radio == "acima") {
+    echo "<br><br>Elementos acima da média;<br><br>";
+    for ($x = 0; $x < $q; $x++) {
+        $vet[] = rand($min, $max);
+        $cont += $vet[$x];   
+    } $media = $cont / $q;
+    echo "A média é $media<br>";
+     for ($x = 0; $x < $q; $x++) {
+        if ( $vet[$x] > $media){
+            echo $vet[$x] . "|";
+    }  
+}
+}else if ($radio == "abaixo") {
+    echo "<br><br>Elementos abaixo da média;<br><br>";
+    for ($x = 0; $x < $q; $x++) {
+        $vet[] = rand($min, $max);
+        $cont += $vet[$x];   
+    } $media = $cont / $q;
+    echo "A média é $media<br>";
+     for ($x = 0; $x < $q; $x++) {
+        if ( $vet[$x] < $media){
+            echo $vet[$x] . "|";
+    }  
+}
 }
