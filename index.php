@@ -1,39 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-    <?php
-        $radio = isset($_POST['radio']) ? $_POST['radio'] : "";
-    ?>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Página Principal</title>
 </head>
 <body>
-    <form action="pag2.php" method="post">
-        Quantidade de Números Gerados <input type="number" name="q" id="q"><br><br>
-        Mínimo <input type="number" name="min" id="min"><br><br>
-        Máximo <input type="number" name="max" id="max"><br><br>
-        <fieldset>
-            <legend>Resultados</legend>
-            <input type="radio" name="radio" id="radio" value="ordem">Mostrar os elementos do vetor na ordem original
-            (primeiro, segundo, ... , último);<br>
-            <input type="radio" name="radio" id="radio" value="ordemin">Mostrar os elementos do vetor na ordem inversa
-            (último, penúltimo, ... , primeiro);<br>
-            <input type="radio" name="radio" id="radio" value="maior">Maior elemento;<br>
-            <input type="radio" name="radio" id="radio" value="menor">Menor elemento;<br>
-            <input type="radio" name="radio" id="radio" value="par">Elementos Pares;<br>
-            <input type="radio" name="radio" id="radio" value="impar">Elementos Ímpares;<br>
-            <input type="radio" name="radio" id="radio" value="soma">Soma dos Elementos;<br>
-            <input type="radio" name="radio" id="radio" value="media">Média dos Elementos;<br>
-            <input type="radio" name="radio" id="radio" value="acima">Elementos acima da média;<br>
-            <input type="radio" name="radio" id="radio" value="abaixo">Elementos abaixo da média;<br>
-            <input type="radio" name="radio" id="radio" value="primos">Elementos primos;<br>
-            
-        </fieldset>
-        <input type="submit" value="Calcular">
+    <fieldset>
+        <legend>Página Principal</legend>
+    <form action="pag1.php" method="post">
         
+        <input type="text" name="inp1" id="inp1" value="Globo"><br>
+        <input type="text" name="inp2" id="inp2" value="SBT"><br>
+        <input type="text" name="inp3" id="inp3" value="MTV"><br>
+        <input type="text" name="inp4" id="inp4" value="RBA"><br>
+        <input type="text" name="inp5" id="inp5" value="Gazeta"><br>
+        <input type="text" name="inp6" id="inp6" value="Tv Cultura"><br>
+        <input type="text" name="inp7" id="inp7" value="Tv Escola"><br>
+        <input type="text" name="inp8" id="inp8" value="Record"><br>
+        <input type="text" name="inp9" id="inp9" value="Band"><br>
+        <input type="text" name="inp10" id="inp10" value="Jovem Pam"><br><br>
+        <input type="submit" value="enviar">   
     </form>
-    
+    </fieldset>
+   
 </body>
 </html>
