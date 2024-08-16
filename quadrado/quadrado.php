@@ -19,23 +19,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
         $uni = Unidade::listar(1, $unidade)[0];
         $quadrado = new Quadrado($id, $altura, $cor, $uni);
-        $resultado = "";
-        switch ($acao) {
-            case ("Salvar"):
-                $resultado = $quadrado->incluir();
-                break;
-            case ("alterar"):
-                $resultado = $quadrado->alterar();
-                break;
-            case ("excluir"):
-                $resultado = $quadrado->excluir();
-                break;
-        }
+            $resultado = "";
+            switch ($acao) {
+                case ("Salvar"):
+                    $resultado = $quadrado->incluir();
+                    break;
+                case ("Alterar"):
+                    $resultado = $quadrado->alterar();
+                    break;
+                case ("Excluir"):
+                    $resultado = $quadrado->excluir();
+                    break;
+            }
 
-        if ($resultado)
-            header('Location: index.php');
-        else
-            echo "erro ao inserir dados!";
+            if ($resultado)
+                header('Location: index.php');
+            else
+                echo "erro ao inserir dados!";
         
     } catch (Exception $e) {
         header('Location:index.php?MSG=ERROR:' . $e->getMessage());

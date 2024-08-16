@@ -2,6 +2,7 @@
 require_once("../classes/Unidade.class.php");
 require_once("../classes/Database.class.php");
 
+
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
 $msg = isset($_GET['MSG']) ? $_GET['MSG'] : "";
 if ($id > 0) {
@@ -17,24 +18,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $unidade = new Unidade($id, $unidade);
         
         $resultado = "";
-        if ($acao == 'Salvar') {
-            if ($id > 0) {
-                $resultado = $unidade->alterar();
-            } else {
+        switch ($acao) {
+            case ("Salvar"):
                 $resultado = $unidade->incluir();
-            }
-        } elseif ($acao == 'excluir') {
-            $resultado = $unidade->excluir();
+                break;
+            case ("Alterar"):
+                $resultado = $unidade->alterar();
+                break;
+            case ("Excluir"):
+                $resultado = $unidade->excluir();
+                break;
         }
+
         if ($resultado)
             header('Location: index.php');
         else
             echo "erro ao inserir dados!";
+
     } catch (Exception $e) {
         header('Location:index.php?MSG=ERROR:' . $e->getMessage());
     }
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $busca = isset($_GET['busca']) ? $_GET['busca'] : "";
-    $unidade = isset($_GET['unidade']) ? $_GET['unidade'] : 0;
+    $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 0;
     $lista = Unidade::listar($tipo, $busca);
 }

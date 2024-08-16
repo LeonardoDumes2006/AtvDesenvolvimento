@@ -61,8 +61,12 @@ class Unidade
     {
         $sql = 'UPDATE unidade
                 SET unidade = :unidade, iduni = :id
-                WHERE id = :id';
-        $parametros = array( ':unidade' => $this->unidade, ':id' => $this->id);
+                WHERE iduni = :id';
+        $parametros =
+            array(
+                ':unidade' => $this->unidade,
+                ':id' => $this->id
+            );
         return Database::executar($sql, $parametros);
     }
 
@@ -102,5 +106,4 @@ class Unidade
         }
         return $unidades;
     }
-
 }

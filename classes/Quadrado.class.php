@@ -80,20 +80,25 @@ class Quadrado
     public function excluir()
     {
         $conexao = Database::getInstance();
-        $sql = 'DELETE FROM quadrado WHERE id = :id';
+        $sql = 'DELETE FROM quadrado WHERE idquad = :id';
         $comando = $conexao->prepare($sql);
         $comando->bindValue(':id', $this->id);
         return $comando->execute();
     }
 
     public function alterar()
-    {
-        $sql = 'UPDATE quadrado
-                SET lado = :lado, cor = :cor, unidade = :unidade, id = :id
-                WHERE id = :id';
-        $parametros = array(':lado' => $this->altura, ':cor' => $this->cor, ':unidade' => $this->unidade, ':id' => $this->id);
-        return Database::executar($sql, $parametros);
-    }
+{
+    $sql = 'UPDATE quadrado
+            SET lado = :lado, cor = :cor, unidade = :unidade
+            WHERE idquad = :id';
+    $parametros = array(
+        ':lado' => $this->altura,
+        ':cor' => $this->cor,
+        ':unidade' => $this->unidade->getId(), // Passar o ID da unidade em vez do objeto
+        ':id' => $this->id
+    );
+    return Database::executar($sql, $parametros);
+}
 
     public static function listar($tipo = 0, $busca = "")
     {
