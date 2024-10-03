@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include_once('quadrado.php');
+include_once('circulo.php');
 ?>
 
 <head>
@@ -19,10 +19,11 @@ include_once('quadrado.php');
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="#">Cadastro de Quadrado</a>
+                    <a class="nav-link" href="../quadrado/index.php">Cadastro de Quadrado</a>
                     <a class="nav-link" href="../unidade/index.php">Cadastro de Unidade</a>
                     <a class="nav-link" href="../triangulo/index.php">Cadastro de Triângulo</a>
-                    <a class="nav-link" href="../circulo/index.php">Cadastro de Circulo</a>
+                    <a class="nav-link active" aria-current="page" href="#">Cadastro de Circulo</a>
+
                 </div>
             </div>
         </div>
@@ -32,20 +33,20 @@ include_once('quadrado.php');
         <div class="row m-3">
             <!-- Coluna da esquerda: Formulário de Cadastro de Quadrado e Tabela -->
             <div class="col-md-6 p-3">
-                <form action="quadrado.php" method="post" enctype="multipart/form-data">
+                <form action="circulo.php" method="post" enctype="multipart/form-data">
                     <div class="row justify-content-center">
                         <div class="col-12">
-                            <h4><b>Cadastro de Quadrado</b></h4>
+                            <h4><b>Cadastro de Circulo</b></h4>
                         </div>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-8">
-                            <label class="form-label" for="lado">Lado</label>
-                            <input type="number" class="form-control" name="lado" id="lado" value="<?= $id ? $quadrado->getLado() : 0 ?>" placeholder="Digite a altura de sua forma">
+                            <label class="form-label" for="diametro">Diâmetro</label>
+                            <input type="number" class="form-control" name="diametro" id="diametro" value="<?= $id ? $circulo->getDiametro() : 0 ?>" placeholder="Digite o diâmetro de sua forma">
                         </div>
                         <div class="col-4">
                             <label class="form-label" for="cor">Cor</label>
-                            <input type="color" class="form-control form-control-color" name="cor" id="cor" placeholder="Digite a cor de sua forma" value="<?= $id ? $quadrado->getCor() : 'black' ?>">
+                            <input type="color" class="form-control form-control-color" name="cor" id="cor" placeholder="Digite a cor de sua forma" value="<?= $id ? $circulo->getCor() : 'black' ?>">
                         </div>
                     </div>
                     <div class="row justify-content-center mt-3">
@@ -57,13 +58,11 @@ include_once('quadrado.php');
                                 $unidades = Unidade::listar();
                                 foreach ($unidades as $unidade) {
                                     $str = "<option value='{$unidade->getId()} '";
-                                    if (isset($quadrado) && $quadrado->getUnidade()->getId() == $unidade->getId())
+                                    if (isset($circulo) && $circulo->getUnidade()->getId() == $unidade->getId())
                                         $str .= " selected";
                                     $str .= ">" . $unidade->getUnidade() . "</option>";
                                     echo $str;
-
                                 } ?>
-
                             </select>
 
                         </div>
@@ -73,7 +72,7 @@ include_once('quadrado.php');
                         </div>
                     </div>
 
-                    <input type="text" name="id" id="id" value="<?= isset($quadrado) ? $quadrado->getId() : 0 ?>" hidden>
+                    <input type="text" name="id" id="id" value="<?= isset($circulo) ? $circulo->getId() : 0 ?>" hidden>
 
                     <div class="row justify-content-center mt-4">
                         <div class="col-4 d-grid gap-2">
@@ -92,7 +91,7 @@ include_once('quadrado.php');
                 <!-- Tabela de Quadrados -->
                 <div class="row justify-content-center mt-5">
                     <div class="col-12">
-                        <h4><b>Tabela Quadrados</b></h4>
+                        <h4><b>Tabela Circulos</b></h4>
                     </div>
                 </div>
                 <div class="row justify-content-center">
@@ -101,23 +100,23 @@ include_once('quadrado.php');
                             <thead class="table-dark">
                                 <tr>
                                     <th>Id</th>
-                                    <th>Lado</th>
+                                    <th>Diametro</th>
                                     <th>Cor</th>
                                     <th>Unidade</th>
                                     <th>Área</th>
-                                    <th>Perímetro</th>
+                                    <th>Circunferencia</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($lista as $quadrado) {
+                                foreach ($lista as $circulo) {
                                     echo "<tr>
-                                         <td>" . $quadrado->getId() . "</td>
-                                         <td>" . $quadrado->getLado() . "</td>
-                                         <td>" . $quadrado->getCor() . "</td>
-                                         <td>" . $quadrado->getUnidade()->getUnidade() . "</td>
-                                         <td>" . $quadrado->calcularArea() . "</td>
-                                         <td>" . $quadrado->calcularPerimetro() . "</td>
+                                         <td>" . $circulo->getId() . "</td>
+                                         <td>" . $circulo->getDiametro() . "</td>
+                                         <td>" . $circulo->getCor() . "</td>
+                                         <td>" . $circulo->getUnidade()->getUnidade() . "</td>
+                                         <td>" . $circulo->calcularArea() . "</td>
+                                         <td>" . $circulo->calcularPerimetro() . "</td>
                                       </tr>";
                                 }
                                 ?>
@@ -144,7 +143,7 @@ include_once('quadrado.php');
                         <div class="col-12">
                             <select class="form-select" name="tipo" id="tipo">
                                 <option value="1">ID</option>
-                                <option value="2">Lado</option>
+                                <option value="2">Diametro</option>
                                 <option value="3">Cor</option>
                                 <option value="4">Unidade</option>
                             </select>
@@ -160,14 +159,14 @@ include_once('quadrado.php');
                 <!-- Apresentação dos Quadrados -->
                 <div class="row justify-content-center mt-4">
                     <div class="col-12">
-                        <h4><b>Quadrado</b></h4>
+                        <h4><b>Circulo</b></h4>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-12">
                         <?php
-                        foreach ($lista as $quadrado) {
-                            echo "<a href='index.php?id=" . $quadrado->getId() . "'>" . $quadrado->desenharForma($quadrado) . "</a>";
+                        foreach ($lista as $circulo) {
+                            echo "<a href='index.php?id=" . $circulo->getId() . "'>" . $circulo->desenharForma($circulo) . "</a>";
                         }
                         ?>
                     </div>

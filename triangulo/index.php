@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include_once('quadrado.php');
+include_once('triangulo.php');
 ?>
 
 <head>
@@ -19,10 +19,11 @@ include_once('quadrado.php');
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="#">Cadastro de Quadrado</a>
+                    <a class="nav-link" href="../quadrado/index.php">Cadastro de Quadrado</a>
                     <a class="nav-link" href="../unidade/index.php">Cadastro de Unidade</a>
-                    <a class="nav-link" href="../triangulo/index.php">Cadastro de Triângulo</a>
+                    <a class="nav-link active" aria-current="page" href="#">Cadastro de Triângulo</a>
                     <a class="nav-link" href="../circulo/index.php">Cadastro de Circulo</a>
+
                 </div>
             </div>
         </div>
@@ -32,24 +33,32 @@ include_once('quadrado.php');
         <div class="row m-3">
             <!-- Coluna da esquerda: Formulário de Cadastro de Quadrado e Tabela -->
             <div class="col-md-6 p-3">
-                <form action="quadrado.php" method="post" enctype="multipart/form-data">
+                <form action="triangulo.php" method="post" enctype="multipart/form-data">
                     <div class="row justify-content-center">
                         <div class="col-12">
-                            <h4><b>Cadastro de Quadrado</b></h4>
+                            <h4><b>Cadastro de Triângulo</b></h4>
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-8">
-                            <label class="form-label" for="lado">Lado</label>
-                            <input type="number" class="form-control" name="lado" id="lado" value="<?= $id ? $quadrado->getLado() : 0 ?>" placeholder="Digite a altura de sua forma">
+                        <div class="col-3">
+                            <label class="form-label" for="lado1">Lado 1 </label>
+                            <input type="number" class="form-control" name="lado1" id="lado1" value="<?= $id ? $triangulo->getLado1() : 0 ?>" placeholder="">
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
+                            <label class="form-label" for="lado2">Lado 2 </label>
+                            <input type="number" class="form-control" name="lado2" id="lado2" value="<?= $id ? $triangulo->getLado2() : 0 ?>" placeholder="">
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label" for="lado3">Lado 3 </label>
+                            <input type="number" class="form-control" name="lado3" id="lado3" value="<?= $id ? $triangulo->getLado3() : 0 ?>" placeholder="">
+                        </div>
+                        <div class="col-3">
                             <label class="form-label" for="cor">Cor</label>
-                            <input type="color" class="form-control form-control-color" name="cor" id="cor" placeholder="Digite a cor de sua forma" value="<?= $id ? $quadrado->getCor() : 'black' ?>">
+                            <input type="color" class="form-control form-control-color" name="cor" id="cor" placeholder="Digite a cor de sua forma" value="<?= $id ? $triangulo->getCor() : 'black' ?>">
                         </div>
                     </div>
                     <div class="row justify-content-center mt-3">
-                        <div class="col-6">
+                        <div class="col-3">
                             <label class="form-label" for="unidade">Unidade</label>
                             <select class="form-select" name="unidade" id="unidade">
                                 <?php
@@ -57,13 +66,20 @@ include_once('quadrado.php');
                                 $unidades = Unidade::listar();
                                 foreach ($unidades as $unidade) {
                                     $str = "<option value='{$unidade->getId()} '";
-                                    if (isset($quadrado) && $quadrado->getUnidade()->getId() == $unidade->getId())
+                                    if (isset($triangulo) && $triangulo->getUnidade()->getId() == $unidade->getId())
                                         $str .= " selected";
                                     $str .= ">" . $unidade->getUnidade() . "</option>";
                                     echo $str;
-
                                 } ?>
+                            </select>
 
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label" for="tipo">Tipo</label>
+                            <select class="form-select" name="tipo" id="tipo">
+                                <option value="equi">Equilatero</option>
+                                <option value="iso">Isosceles</option>
+                                <option value="esca">Escaleno</option>
                             </select>
 
                         </div>
@@ -73,7 +89,7 @@ include_once('quadrado.php');
                         </div>
                     </div>
 
-                    <input type="text" name="id" id="id" value="<?= isset($quadrado) ? $quadrado->getId() : 0 ?>" hidden>
+                    <input type="text" name="id" id="id" value="<?= isset($triangulo) ? $triangulo->getId() : 0 ?>" hidden>
 
                     <div class="row justify-content-center mt-4">
                         <div class="col-4 d-grid gap-2">
@@ -89,10 +105,10 @@ include_once('quadrado.php');
                     </div>
                 </form>
 
-                <!-- Tabela de Quadrados -->
+                <!-- Tabela de triangulos -->
                 <div class="row justify-content-center mt-5">
                     <div class="col-12">
-                        <h4><b>Tabela Quadrados</b></h4>
+                        <h4><b>Tabela triangulos</b></h4>
                     </div>
                 </div>
                 <div class="row justify-content-center">
@@ -101,7 +117,9 @@ include_once('quadrado.php');
                             <thead class="table-dark">
                                 <tr>
                                     <th>Id</th>
-                                    <th>Lado</th>
+                                    <th>Lado 1</th>
+                                    <th>Lado 2</th>
+                                    <th>Lado 3</th>
                                     <th>Cor</th>
                                     <th>Unidade</th>
                                     <th>Área</th>
@@ -110,14 +128,17 @@ include_once('quadrado.php');
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($lista as $quadrado) {
+                                foreach ($lista as $triangulo) {
                                     echo "<tr>
-                                         <td>" . $quadrado->getId() . "</td>
-                                         <td>" . $quadrado->getLado() . "</td>
-                                         <td>" . $quadrado->getCor() . "</td>
-                                         <td>" . $quadrado->getUnidade()->getUnidade() . "</td>
-                                         <td>" . $quadrado->calcularArea() . "</td>
-                                         <td>" . $quadrado->calcularPerimetro() . "</td>
+                                         <td>" . $triangulo->getId() . "</td>
+                                         <td>" . $triangulo->getLado1() . "</td>
+                                         <td>" . $triangulo->getLado2() . "</td>
+                                         <td>" . $triangulo->getLado3() . "</td>
+                                         <td>" . $triangulo->getCor() . "</td>
+                                         <td>" . $triangulo->getUnidade()->getUnidade() . "</td>
+                                         <td>" . $triangulo->calcularArea() . "</td>
+                                         <td>" . $triangulo->calcularPerimetro( ). "</td>
+
                                       </tr>";
                                 }
                                 ?>
@@ -160,14 +181,14 @@ include_once('quadrado.php');
                 <!-- Apresentação dos Quadrados -->
                 <div class="row justify-content-center mt-4">
                     <div class="col-12">
-                        <h4><b>Quadrado</b></h4>
+                        <h4><b>Triangulo</b></h4>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-12">
                         <?php
-                        foreach ($lista as $quadrado) {
-                            echo "<a href='index.php?id=" . $quadrado->getId() . "'>" . $quadrado->desenharForma($quadrado) . "</a>";
+                        foreach ($lista as $triangulo) {
+                            echo "<a href='index.php?id=" . $triangulo->getId() . "'>" . $triangulo->desenharForma($triangulo) . "</a>";
                         }
                         ?>
                     </div>

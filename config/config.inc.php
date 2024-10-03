@@ -5,3 +5,8 @@ define('HOST', 'localhost');//define host
 define('PORT', '3306');//define port
 define('DB', 'formageometria');//define schema
 define('DSN', 'mysql:host=' . HOST . ';port=' . PORT . ';dbname=' . DB . ';charset=UTF8');//define o banco de dados
+define('IMG', 'img');
+
+define("Equilatero", 1 );
+define("Escaleno", 2 );
+define("Isosceles", 3 );

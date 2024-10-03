@@ -22,14 +22,17 @@ include_once('unidade.php');
                 <div class="navbar-nav">
                     <a class="nav-link" href="../quadrado/index.php">Cadastro de Quadrado</a>
                     <a class="nav-link active" aria-current="page" href="#">Cadastro de Unidade</a>
+                    <a class="nav-link" href="../triangulo/index.php">Cadastro de Triângulo</a>
+                    <a class="nav-link" href="../circulo/index.php">Cadastro de Circulo</a>
                 </div>
             </div>
         </div>
     </nav>
     
-        <div class="row justify-content-center">
+    <div class="container-fluid">
+        <div class="row justify-content-center m-3">
             <!-- Coluna da esquerda: Formulário de Cadastro de Unidade -->
-            <div class="col-md-6 p-5">
+            <div class="col-md-6 p-3">
                 <h4><b>Cadastro de Unidade</b></h4>
                 <form action="unidade.php" method="post">
                     <div class="row justify-content-center mb-3">
@@ -59,7 +62,7 @@ include_once('unidade.php');
             </div>
 
             <!-- Coluna da direita: Formulário de Busca e Tabela de Unidades -->
-            <div class="col-md-6 p-5">
+            <div class="col-md-6 p-3">
                 <h4><b>Busca</b></h4>
                 <form action="" method="get">
                     <div class="row justify-content-center mb-3">
@@ -85,7 +88,7 @@ include_once('unidade.php');
                 <!-- Tabela de Unidades -->
                 <div class="row justify-content-center mt-5">
                     <div class="col-12">
-                        <table class="table table-striped" border="1px">
+                        <table class="table table-striped table-responsive" border="1px">
                             <thead class="table-dark">
                                 <tr>
                                     <th>Id</th>
@@ -96,7 +99,7 @@ include_once('unidade.php');
                             <?php
                             foreach ($lista as $unidade) {
                                 echo "<tr>
-                                        <td>". $unidade->getId() . "</td>
+                                        <td><a href='index.php?id=". $unidade->getId() . "'>" . $unidade->getId() . "</a></td>
                                         <td><a href='index.php?id=" . $unidade->getId() . "' style='text-decoration: none; color: black'>" . $unidade->getUnidade() . "</a></td>
                                     </tr>";
                             }
@@ -106,7 +109,7 @@ include_once('unidade.php');
                     </div>
                 </div>
             </div>
-        
+        </div>
     </div>
 </body>
 </html>

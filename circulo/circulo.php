@@ -1,17 +1,17 @@
 <?php
-require_once("../classes/Quadrado.class.php");
+require_once("../classes/Circulo.class.php");
 require_once("../classes/Unidade.class.php");
 require_once("../classes/Database.class.php");
 
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
 $msg = isset($_GET['MSG']) ? $_GET['MSG'] : "";
 if ($id > 0) {
-    $quadrado = Quadrado::listar(1, $id)[0];
+    $circulo = Circulo::listar(1, $id)[0];
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = isset($_POST['id']) ? $_POST['id'] : 0;
-    $lado = isset($_POST['lado']) ? $_POST['lado'] : 0;
+    $diametro = isset($_POST['diametro']) ? $_POST['diametro'] : 0;
     $cor = isset($_POST['cor']) ? $_POST['cor'] : "";
     $unidade = isset($_POST['unidade']) ? $_POST['unidade'] : "";
     $arquivo = isset($_FILES['img']) ? $_FILES['img'] : "";
@@ -20,17 +20,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
         $uni = Unidade::listar(1, $unidade)[0];
-        $quadrado = new Quadrado($id, $lado, $cor, $uni,$destino);
+        $circulo = new circulo($id, $diametro, $cor, $uni,$destino);
             $resultado = "";
             switch ($acao) {
                 case ("Salvar"):
-                    $resultado = $quadrado->incluir();
+                    $resultado = $circulo->incluir();
                     break;
                 case ("Alterar"):
-                    $resultado = $quadrado->alterar();
+                    $resultado = $circulo->alterar();
                     break;
                 case ("Excluir"):
-                    $resultado = $quadrado->excluir();
+                    $resultado = $circulo->excluir();
                     break;
             }
 
@@ -48,5 +48,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $busca = isset($_GET['busca']) ? $_GET['busca'] : "";
     $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 0;
-    $lista = Quadrado::listar($tipo, $busca);
+    $lista = Circulo::listar($tipo, $busca);
 }

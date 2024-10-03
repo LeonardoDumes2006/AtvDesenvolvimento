@@ -3,40 +3,38 @@ require_once("../classes/Database.class.php");
 require_once("../classes/Formas.class.php");
 require_once("../classes/Unidade.class.php");
 
-class Quadrado extends Formas
+class Circulo extends Formas
 {
-   
-    private $lado;
-   
+    private $diametro;
 
-    public function  __construct($id = 0, $lado = 1, $cor = "black", Unidade $unidade = null, $img = "null" )
+    public function  __construct($id = 0, $diametro = 0, $cor = "black", Unidade $unidade = null, $img = "null" )
     {
         parent:: __construct($id, $cor, $unidade, $img);
-        $this->setLado($lado);
-    
+        $this->setDiametro($diametro);
     }
+    
 
-    public function setLado($lado)
+    public function setDiametro($diametro)
     {
-        if ($lado < 1)
+        if ($diametro < 1)
             throw new Exception("Erro, número indefinido");
         else
-            $this->lado = $lado;
+            $this->diametro = $diametro;
     }
 
    
-    public function getLado()
+    public function getDiametro()
     {
-        return $this->lado;
+        return $this->diametro;
     }
 
 
     public function incluir()
     {
-        $sql = 'INSERT INTO quadrado (lado,cor, unidade, imagem)   
-                VALUES (:lado, :cor, :unidade, :imagem)';
+        $sql = 'INSERT INTO circulo (diametro,cor, unidade, imagem)   
+                VALUES (:diametro, :cor, :unidade, :imagem)';
 
-        $parametros = array(':lado' => $this->lado, 
+        $parametros = array(':diametro' => $this->diametro, 
                             ':cor' => $this->getCor(),
                             ':unidade' => $this->getUnidade()->getId(),
                             ':imagem' => $this->getImg());
@@ -46,19 +44,19 @@ class Quadrado extends Formas
     public function excluir()
     {
         $conexao = Database::getInstance();
-        $sql = 'DELETE FROM quadrado WHERE idquad = :id';
+        $sql = 'DELETE FROM circulo WHERE idcirculo = :id';
         $comando = $conexao->prepare($sql);
-        $comando->bindValue(':id', $this->getId());
+        $comando->bindValue(':id', $this->getUnidade());
         return $comando->execute();
     }
 
     public function alterar()
 {
-    $sql = 'UPDATE quadrado
-            SET lado = :lado, cor = :cor, unidade = :unidade
-            WHERE idquad = :id';
+    $sql = 'UPDATE circulo
+            SET diametro = :diametro, cor = :cor, unidade = :unidade
+            WHERE idcirculo = :id';
     $parametros = array(
-        ':lado' => $this->lado,
+        ':diametro' => $this->diametro,
         ':cor' => $this->getCor(),
         ':unidade' => $this->getUnidade()->getId(), // Passar o ID da unidade em vez do objeto
         ':id' => $this->getId()
@@ -68,14 +66,14 @@ class Quadrado extends Formas
 
     public static function listar($tipo = 0, $busca = ""):array
     {
-        $sql = "SELECT * FROM quadrado";
+        $sql = "SELECT * FROM circulo";
         if ($tipo > 0) {
             switch ($tipo) {
                 case 1:
-                    $sql .= " WHERE idquad = :busca";
+                    $sql .= " WHERE idcirculo = :busca";
                     break;
                 case 2:
-                    $sql .= " WHERE lado LIKE :busca";
+                    $sql .= " WHERE diametro LIKE :busca";
                     $busca = "%{$busca}%";
                     break;
                 case 3:
@@ -94,33 +92,33 @@ class Quadrado extends Formas
             $parametros = array(':busca' => $busca);
 
         $comando = Database::executar($sql, $parametros);
-        $quadrados = array();
+        $circulos = array();
 
         while ($forma = $comando->fetch(PDO::FETCH_ASSOC)) {
             $unidade = Unidade :: listar(1,$forma['unidade'])[0]; 
-            $quadrado = new Quadrado($forma['idquad'], $forma['lado'], $forma['cor'], $unidade,  $forma['imagem']);
-            array_push($quadrados, $quadrado);
+            $circulo = new Circulo($forma['idcirculo'], $forma['diametro'], $forma['cor'], $unidade,  $forma['imagem']);
+            array_push($circulos, $circulo);
         }
-        return $quadrados;
+        return $circulos;
     }
 
+
+    // fazer desenhar - não feito ainda 
     public function desenharForma()
     {
     //     var_dump($this);
     // die;
-        return "<div class = 'container' style= ' background-color:" . $this->getCor() . "; 
-        background-image:url(\"{$this->getImg()}\");width:" . $this->getLado() . $this->getUnidade()->getUnidade(). "; 
-        background-size: contain; height:" . $this->getLado() . $this->getUnidade()->getUnidade(). "'></div><br>";
+        return "<div class = 'container' style= ' background-color:" . $this->getCor() . "; background-image:url(\"{$this->getImg()}\");width:" . $this->getDiametro() . $this->getUnidade()->getUnidade(). "; 
+        background-size: contain; height:" . $this->getDiametro() . $this->getUnidade()->getUnidade(). ";  border-radius: 100%; '></div><br> ";
     }
 
     public function calcularArea(){
-        $area = $this->getLado() ** 2;
+        $area = ( 3.14 * ( $this->getDiametro() / 2 ** 2 ))  ;
         return $area;
     }
 
     public function calcularPerimetro(){
-        $perimetro = $this->getLado() * 4;
+        $perimetro = ( 2 * 3.14 * ( $this->getDiametro() / 2 ))  ;
         return $perimetro;
     }
-
 }
