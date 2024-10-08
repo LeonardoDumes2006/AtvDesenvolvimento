@@ -116,8 +116,8 @@ include_once('quadrado.php');
                                          <td>" . $quadrado->getLado() . "</td>
                                          <td>" . $quadrado->getCor() . "</td>
                                          <td>" . $quadrado->getUnidade()->getUnidade() . "</td>
-                                         <td>" . $quadrado->calcularArea() . "</td>
-                                         <td>" . $quadrado->calcularPerimetro() . "</td>
+                                         <td>" . $quadrado->calcularArea() . " ". $quadrado->getUnidade()->getUnidade() . "²". "</td>
+                                         <td>" . $quadrado->calcularPerimetro() . " " . $quadrado->getUnidade()->getUnidade(). "</td>
                                       </tr>";
                                 }
                                 ?>

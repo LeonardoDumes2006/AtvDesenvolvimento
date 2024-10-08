@@ -115,8 +115,8 @@ include_once('circulo.php');
                                          <td>" . $circulo->getDiametro() . "</td>
                                          <td>" . $circulo->getCor() . "</td>
                                          <td>" . $circulo->getUnidade()->getUnidade() . "</td>
-                                         <td>" . $circulo->calcularArea() . "</td>
-                                         <td>" . $circulo->calcularPerimetro() . "</td>
+                                         <td>" . $circulo->calcularArea() . " ". $circulo->getUnidade()->getUnidade() . "²" . "</td>
+                                         <td>" . $circulo->calcularPerimetro() . " " . $circulo->getUnidade()->getUnidade(). "</td>
                                       </tr>";
                                 }
                                 ?>

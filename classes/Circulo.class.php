@@ -46,7 +46,7 @@ class Circulo extends Formas
         $conexao = Database::getInstance();
         $sql = 'DELETE FROM circulo WHERE idcirculo = :id';
         $comando = $conexao->prepare($sql);
-        $comando->bindValue(':id', $this->getUnidade());
+        $comando->bindValue(':id', $this->getId());
         return $comando->execute();
     }
 
@@ -113,12 +113,12 @@ class Circulo extends Formas
     }
 
     public function calcularArea(){
-        $area = ( 3.14 * ( $this->getDiametro() / 2 ** 2 ))  ;
+        $area = ( 3.1416 * ( $this->getDiametro() / 2 ** 2 )) ;
         return $area;
     }
 
     public function calcularPerimetro(){
-        $perimetro = ( 2 * 3.14 * ( $this->getDiametro() / 2 ))  ;
+        $perimetro = ( 2 * 3.1416 * ( $this->getDiametro() / 2 )) ;
         return $perimetro;
     }
 }

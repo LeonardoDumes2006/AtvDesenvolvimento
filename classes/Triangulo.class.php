@@ -93,11 +93,11 @@ abstract class Triangulo extends Formas{
             $unidade = Unidade :: listar(1,$forma['unidade'])[0]; 
             
             if($forma['lado1'] == $forma['lado2'] && $forma['lado2'] == $forma['lado3']){
-                $triangulo = new TrianguloEquilatero($forma['idtriangulo'], $forma['lado1'], $forma['lado2'], $forma['lado3'], $forma['cor'], $unidade, $forma['imagem'], $forma['tipo']);
+                $triangulo = new TrianguloEquilatero($forma['idtriangulo'], $forma['cor'], $unidade,  $forma['imagem'], $forma['lado1'], $forma['lado2'], $forma['lado3'],  $forma['tipo']);
             }elseif(($forma['lado1'] == $forma['lado2'] && $forma['lado2'] != $forma['lado3']) || ($forma['lado2'] == $forma['lado3'] && $forma['lado3'] != $forma['lado1']) || ($forma['lado1'] == $forma['lado3'] && $forma['lado3'] != $forma['lado2'])){
-                $triangulo = new TrianguloIsosceles($forma['idtriangulo'], $forma['lado1'], $forma['lado2'], $forma['lado3'], $forma['cor'], $unidade, $forma['imagem'], $forma['tipo']);
+                $triangulo = new TrianguloIsosceles($forma['idtriangulo'], $forma['cor'], $unidade,  $forma['imagem'], $forma['lado1'], $forma['lado2'], $forma['lado3'],  $forma['tipo']);
             } elseif($forma['lado1'] != $forma['lado2'] && $forma['lado1'] != $forma['lado3'] && $forma['lado2'] != $forma['lado3']){
-                $triangulo = new TrianguloEscaleno($forma['idtriangulo'], $forma['lado1'], $forma['lado2'], $forma['lado3'], $forma['cor'], $unidade, $forma['imagem'], $forma['tipo']);
+                $triangulo = new TrianguloEscaleno($forma['idtriangulo'], $forma['cor'], $unidade,  $forma['imagem'], $forma['lado1'], $forma['lado2'], $forma['lado3'],  $forma['tipo']);
             } 
 
             array_push($triangulos, $triangulo);
@@ -105,22 +105,28 @@ abstract class Triangulo extends Formas{
        return $triangulos;
     }
 
-    public function desenharForma()
-    {
+    abstract public function desenharForma();
     
-        return "<a href='index.php?idTriangulo=" . $this->getId() . "'>
-            <div style='
-                width: 0;
-                height: 0;
-                border-left: " . $this->getLado1() . $this->getUnidade()->getTipo() . " solid transparent;
-                border-right: " . $this->getLado2() . $this->getUnidade()->getTipo() . " solid transparent;
-                border-bottom: " . $this->getLado3() . $this->getUnidade()->getTipo() . " solid " . $this->getCor() . ";
-                background-image:url(" . '"' . $this->getImg() . '"' . ");
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center;
-            '> </div>
-            </a>";
-    }
 
+    private function calcularAngulo($a, $b, $c) {
+        $cosC = ($a * $a + $b * $b - $c * $c) / (2 * $a * $b); 
+        $angulo = rad2deg(acos($cosC)); // Convertendo de radianos para graus
+        return $angulo;
+    }
+    
+    public function verificaAngulo() {
+        $anguloA = $this->calcularAngulo($this->getLado2(), $this->getLado3(), $this->getLado1()); // Ângulo oposto ao lado a
+        $anguloB = $this->calcularAngulo($this->getLado1(), $this->getLado3(), $this->getLado2()); // Ângulo oposto ao lado b
+        $anguloC = $this->calcularAngulo($this->getLado1(), $this->getLado2(), $this->getLado3()); // Ângulo oposto ao lado c
+    
+        $somaAngulos = $anguloA + $anguloB + $anguloC;
+    
+        // Verificando se a soma dos ângulos é aproximadamente 180° (com tolerância para precisão)
+        if (abs($somaAngulos - 180) < 0.0001) {
+            return true; // Se estiver tudo certo
+        } else {
+            return false; // Se houver um erro nos ângulos
+        }
+    }
+    
 }

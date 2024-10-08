@@ -76,7 +76,7 @@ include_once('triangulo.php');
                         </div>
                         <div class="col-3">
                             <label class="form-label" for="tipo">Tipo</label>
-                            <select class="form-select" name="tipo" id="tipo">
+                            <select class="form-select" name="tipo" id="tipo">  
                                 <option value="equi">Equilatero</option>
                                 <option value="iso">Isosceles</option>
                                 <option value="esca">Escaleno</option>
@@ -136,8 +136,8 @@ include_once('triangulo.php');
                                          <td>" . $triangulo->getLado3() . "</td>
                                          <td>" . $triangulo->getCor() . "</td>
                                          <td>" . $triangulo->getUnidade()->getUnidade() . "</td>
-                                         <td>" . $triangulo->calcularArea() . "</td>
-                                         <td>" . $triangulo->calcularPerimetro( ). "</td>
+                                         <td>" . $triangulo->calcularArea() . " ". $triangulo->getUnidade()->getUnidade() . "²" . "</td>
+                                         <td>" . $triangulo->calcularPerimetro() . " " . $triangulo->getUnidade()->getUnidade(). "</td>
 
                                       </tr>";
                                 }
@@ -148,7 +148,7 @@ include_once('triangulo.php');
                 </div>
             </div>
 
-            <!-- Coluna da direita: Formulário de Busca e Apresentação dos Quadrados -->
+            <!-- Coluna da direita: Formulário de Busca e Apresentação dos trin$triangulos -->
             <div class="col-md-6 p-3">
                 <form action="" method="get">
                     <div class="row justify-content-center">

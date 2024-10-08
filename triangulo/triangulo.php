@@ -6,7 +6,7 @@ require_once("../classes/Triangulo_Isosceles.class.php");
 require_once("../classes/Unidade.class.php");
 require_once("../classes/Database.class.php");
 
-$id = isset($_GET['id']) ? $_GET['id'] : 0;
+$id = isset($_GET['idTriangulo']) ? $_GET['idTriangulo'] : 0;
 $msg = isset($_GET['MSG']) ? $_GET['MSG'] : "";
 if ($id > 0) {
     $triangulo = Triangulo::listar(1, $id)[0];
@@ -26,17 +26,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
         $uni = Unidade::listar(1, $unidade)[0];
         $validacao = VerificaTriangulo($lado1, $lado2, $lado3, $tipo);
+        
         if($validacao == "equi"){
             $triangulo = new TrianguloEquilatero($id,  $cor, $uni,$destino, $lado1, $lado2, $lado3);
         }
         else  if($validacao == "iso"){
-            $triangulo = new TrianguloIsosceles($id, $lado1, $lado2, $lado3, $cor, $uni,$destino, $tipo);
+            $triangulo = new TrianguloIsosceles($id,  $cor, $uni,$destino, $lado1, $lado2, $lado3);
         }
         else  if($validacao == "esca"){
-            $triangulo = new TrianguloEscaleno($id, $lado1, $lado2, $lado3, $cor, $uni,$destino, $tipo);
+            $triangulo = new TrianguloEscaleno($id,  $cor, $uni,$destino, $lado1, $lado2, $lado3);
         }
         if($validacao != $tipo){
             throw new Exception("Formato informado inválido");
+        }
+
+        if (!podeFormarTriangulo($lado1, $lado2, $lado3)) {
+            throw new Exception("Não Pode formar um triângulo!");
+        } 
+
+        if (!$triangulo->verificaAngulo()) {
+            throw new Exception("A soma dos ângulos não é igual a 180º. Verifique os valores.");
         }
        
             $resultado = "";
@@ -55,16 +64,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($resultado)
                  header('Location: index.php');
             else
-                echo "erro ao inserir dados!";
-            
-
-
+            echo "erro ao inserir dados!";
+        
+        
+        
         $_SESSION['IMG'] = "Dados Inseridos com sucesso!!";
         move_uploaded_file($arquivo['tmp_name'],$destino);
         
     } catch (Exception $e) {
-        header('Location:index.php?MSG=ERROR:' . $e->getMessage());
-    }
+        
+        header('Location:index.php' . $e->getMessage());
+    }   
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $busca = isset($_GET['busca']) ? $_GET['busca'] : "";
     $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 0;
@@ -89,3 +99,12 @@ function VerificaTriangulo($lado1, $lado2, $lado3, $tipo){
     else 
     return "Formato informado Invalidado";
 }
+
+function podeFormarTriangulo($lado1, $lado2, $lado3){
+    if (($lado1 + $lado2 > $lado3) && ($lado1 + $lado3 > $lado2) && ($lado2 + $lado3 > $lado1)) {
+        return true;  // Pode formar o triângulo
+    } else {
+        return false;  // Não pode formar o triângulo
+    }
+}
+

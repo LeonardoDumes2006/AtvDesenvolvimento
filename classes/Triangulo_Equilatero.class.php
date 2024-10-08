@@ -15,7 +15,7 @@ class TrianguloEquilatero extends Triangulo
 
     public function incluir()
     {
-        $sql = 'INSERT INTO triangulo (lado1, lado2, lado3,cor, imagem, unidade, tipo)   
+        $sql = 'INSERT INTO triangulo (lado1, lado2, lado3, cor, imagem, unidade, tipo)   
                 VALUES (:lado1, :lado2, :lado3, :cor, :imagem , :unidade, :tipo )';
 
         $parametros = array(
@@ -41,14 +41,13 @@ class TrianguloEquilatero extends Triangulo
     public function alterar()
     {
         $sql = 'UPDATE triangulo
-        SET lado1 = :lado1, lado2 = :lado2, lado3 = :lado3 , cor = :cor, unidade = :unidade
+        SET lado1 = :lado1, lado2 = :lado2, lado3 = :lado3 , cor = :cor, unidade = :unidade, tipo = :tipo
         WHERE idtriangulo = :id';
         $parametros = array(
             ':lado1' => $this->getLado1(),
             ':lado2' => $this->getLado2(),
             ':lado3' => $this->getLado3(),
             ':cor' => $this->getCor(),
-            ':imagem' => $this->getImg(),
             ':unidade' => $this->getUnidade()->getId(),
             ':tipo' => Equilatero,
             ':id' => $this->getId()
@@ -65,7 +64,41 @@ class TrianguloEquilatero extends Triangulo
         $perimetro = $this->getLado1() * 3;
         return $perimetro;
     }
-    public function desenharForma() {
 
+    public function desenharForma()
+    {
+        $lado = $this->getLado1(); // Lados iguais
+        $base = $this->getLado3(); // Base
+    
+        return "
+        <a href='index.php?idTriangulo=" . $this->getId() . "'>
+            <div style='position: relative; display: inline-block;'>
+                <div style='
+                    width: 0;
+                    height: 0;
+                    border-left: " . $lado . $this->getUnidade()->getUnidade() . " solid transparent;
+                    border-right: " . $lado . $this->getUnidade()->getUnidade(). " solid transparent;
+                    border-bottom: " . $base . $this->getUnidade()->getUnidade() ." solid " . $this->getCor() . ";
+                    position: relative;
+                '>
+                    <div style='
+                        position: absolute;
+                        top: 0;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: " . (2 * $lado) .  $this->getUnidade()->getUnidade() . ";
+
+                        height: " . $base . $this->getUnidade()->getUnidade(). ";
+                        background-image: url(" . '"' . $this->getImg() . '"' . ");
+                        background-size: cover;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+                        pointer-events: none;
+                    '></div>
+                </div>
+            </div>
+        </a>
+        <br>";
     }
 }
