@@ -1,7 +1,5 @@
 <?php
-require_once("../classes/Database.class.php");
-require_once("../classes/Formas.class.php");
-require_once("../classes/Unidade.class.php");
+require_once("../classes/autoload.php");
 
 class Quadrado extends Formas
 {

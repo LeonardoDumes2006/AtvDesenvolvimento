@@ -1,7 +1,6 @@
 <?php
-require_once("../classes/Circulo.class.php");
-require_once("../classes/Unidade.class.php");
-require_once("../classes/Database.class.php");
+require_once("../classes/autoload.php");
+require_once("../config/config.inc.php");
 
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
 $msg = isset($_GET['MSG']) ? $_GET['MSG'] : "";

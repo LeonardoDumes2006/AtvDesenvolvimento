@@ -1,5 +1,5 @@
 <?php 
-require_once("../classes/Formas.class.php");
+require_once("../classes/autoload.php");
 
 
 abstract class Triangulo extends Formas{

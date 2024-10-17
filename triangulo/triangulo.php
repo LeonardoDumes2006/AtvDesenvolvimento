@@ -1,10 +1,6 @@
 <?php
-require_once("../classes/Triangulo.class.php");
-require_once("../classes/Triangulo_Equilatero.class.php");   
-require_once("../classes/Triangulo_Escaleno.class.php");
-require_once("../classes/Triangulo_Isosceles.class.php");
-require_once("../classes/Unidade.class.php");
-require_once("../classes/Database.class.php");
+require_once("../classes/autoload.php");
+require_once("../config/config.inc.php");
 
 $id = isset($_GET['idTriangulo']) ? $_GET['idTriangulo'] : 0;
 $msg = isset($_GET['MSG']) ? $_GET['MSG'] : "";

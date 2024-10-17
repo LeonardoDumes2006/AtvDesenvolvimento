@@ -12,7 +12,6 @@ abstract class Formas{
         $this->setCor($cor);
         $this->setUnidade($unidade);
         $this->setImg($img);
-
     }
 
     public function setId($id)
