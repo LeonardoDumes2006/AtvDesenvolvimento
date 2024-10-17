@@ -1,5 +1,5 @@
 <?php
-require_once("../classes/Database.class.php");
+require_once("../classes/autoload.php");
 
 class Unidade
 {
